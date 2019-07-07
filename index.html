@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Vue.js Table of Users</title>
+        <script src="vue.js"></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.1/vue-resource.js'></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    </head>
+<body>
+    <main id="app">
+        <div class="container mt-5">
+            <table class="table table-bordered table-striped">
+                <thead style='background: #464646; color: #fff;'>
+                    <tr>
+                        <td>ID</td>
+                        <td>Name</td>
+                        <td>Username</td>
+                        <td>Email</td>
+                        <td>Website</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for='user in fakeData'>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.name }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.website }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- <ul>
+            <li v-for='user in fakeData'>{{ user.id }}</li>
+        </ul> -->
+        
+        <!-- <pre>
+            {{ $data }}
+        </pre> -->
+    </main>
+</body>
+<script>
+
+const url = 'https://jsonplaceholder.typicode.com/users';
+
+const app = new Vue({
+    el: '#app',
+    data: {
+        fakeData: []
+    },
+    methods: {
+        users(){
+            this.$http.get(url).then( function(reply){
+                this.fakeData = reply.data ;
+                //console.log(reply);
+            });
+        }
+    },
+    created(){
+        this.users();
+    }
+});
+</script>
